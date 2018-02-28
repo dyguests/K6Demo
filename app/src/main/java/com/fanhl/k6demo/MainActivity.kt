@@ -1,5 +1,6 @@
 package com.fanhl.k6demo
 
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TabLayout
@@ -8,7 +9,10 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.view.*
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -92,6 +96,32 @@ class MainActivity : AppCompatActivity() {
                                   savedInstanceState: Bundle?): View? {
             val rootView = inflater.inflate(R.layout.fragment_main, container, false)
             return rootView
+        }
+
+        override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+            swipe_refresh_layout.apply {
+                setOnRefreshListener { refreshData() }
+            }
+            recycler_view.apply {
+                adapter = object : BaseQuickAdapter<Int, BaseViewHolder>(R.layout.item_view, listOf(1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3)) {
+                    override fun convert(helper: BaseViewHolder?, item: Int?) {
+                    }
+                }
+            }
+        }
+
+        private fun refreshData() {
+            object : AsyncTask<Void, Void, Void?>() {
+                override fun doInBackground(vararg params: Void?): Void? {
+                    Thread.sleep(2000)
+                    return null
+                }
+
+                override fun onPostExecute(result: Void?) {
+                    swipe_refresh_layout.isRefreshing = false
+                }
+            }.execute()
         }
 
         companion object {

@@ -1,62 +1,18 @@
-<android.support.v4.widget.NestedScrollView
+<android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
+    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
     tools:context="com.fanhl.k6demo.MainActivity$PlaceholderFragment">
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="4dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:background="#baffe0"
-            android:gravity="center"
-            android:padding="48dp"
-            android:text="TextView"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:background="#baffe0"
-            android:gravity="center"
-            android:padding="48dp"
-            android:text="TextView"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:background="#baffe0"
-            android:gravity="center"
-            android:padding="48dp"
-            android:text="TextView"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:background="#baffe0"
-            android:gravity="center"
-            android:padding="48dp"
-            android:text="TextView"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:background="#baffe0"
-            android:gravity="center"
-            android:padding="48dp"
-            android:text="TextView"/>
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+        app:layoutManager="@string/linear_layout_manager"
+        tools:listitem="@layout/item_view"/>
+</android.support.v4.widget.SwipeRefreshLayout>
