@@ -44,6 +44,8 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        tv_left.setOnClickListener { appbar.setExpanded(true, true) }
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
