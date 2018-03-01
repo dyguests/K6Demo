@@ -51,18 +51,25 @@ class MainActivity : AppCompatActivity() {
             }
         })
         appbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-            val collapsedParent = -verticalOffset / appBarLayout.totalScrollRange.toFloat()
-            Log.d(TAG, "onCreate collapsedParent:" + collapsedParent)
+            val collapsedPercent = -verticalOffset / appBarLayout.totalScrollRange.toFloat()
+
+            //仅在这 0.3的区间里交互 //这个值 在  （0,1]之间，可以自定义
+            //这里表示仅在收缩到仅剩百分比hotPercent的时候，才进行收缩
+            val hotPercent = 0.3F
+
+            val collapsedHotPercent = Math.max(-1F, collapsedPercent / hotPercent - 1 / hotPercent)
+
+            Log.d(TAG, "onCreate collapsedPercent:" + collapsedPercent)
 
             ll_tabs.apply {
                 ll_tabs_left.apply widthProvider@ {
                     layoutParams = (layoutParams as LinearLayout.LayoutParams).apply {
-                        leftMargin = (this@widthProvider.width * (collapsedParent - 1)).toInt()
+                        leftMargin = (this@widthProvider.width * collapsedHotPercent).toInt()
                     }
                 }
                 ll_tabs_right.apply widthProvider@ {
                     layoutParams = (layoutParams as LinearLayout.LayoutParams).apply {
-                        rightMargin = (this@widthProvider.width * (collapsedParent - 1)).toInt()
+                        rightMargin = (this@widthProvider.width * collapsedHotPercent).toInt()
                     }
                 }
             }
