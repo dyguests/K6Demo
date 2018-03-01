@@ -59,6 +59,7 @@
             app:layout_scrollFlags="scroll"/>
 
         <LinearLayout
+            android:id="@+id/ll_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -67,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginRight="8dp"
                 android:gravity="end|center_vertical">
 
                 <TextView
@@ -102,7 +103,7 @@
                 android:id="@+id/ll_tabs_right"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
                 android:gravity="start|center_vertical">
 

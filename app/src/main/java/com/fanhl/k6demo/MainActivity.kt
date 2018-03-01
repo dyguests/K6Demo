@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.*
+import android.widget.LinearLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import kotlinx.android.synthetic.main.activity_main.*
@@ -49,6 +50,13 @@ class MainActivity : AppCompatActivity() {
         appbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             val collapsedParent = -verticalOffset / appBarLayout.totalScrollRange.toFloat()
             Log.d(TAG, "onCreate collapsedParent:" + collapsedParent)
+
+            ll_tabs.apply {
+                val leftLayoutParams = (ll_tabs_left.layoutParams as LinearLayout.LayoutParams).apply {
+                    leftMargin = (ll_tabs_left.width * (collapsedParent - 1)).toInt()
+                }
+                ll_tabs_left.layoutParams = leftLayoutParams
+            }
         }
 
         tv_left.setOnClickListener { appbar.setExpanded(true, true) }
