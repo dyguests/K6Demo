@@ -52,10 +52,16 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "onCreate collapsedParent:" + collapsedParent)
 
             ll_tabs.apply {
-                val leftLayoutParams = (ll_tabs_left.layoutParams as LinearLayout.LayoutParams).apply {
-                    leftMargin = (ll_tabs_left.width * (collapsedParent - 1)).toInt()
+                ll_tabs_left.apply widthProvider@ {
+                    layoutParams = (layoutParams as LinearLayout.LayoutParams).apply {
+                        leftMargin = (this@widthProvider.width * (collapsedParent - 1)).toInt()
+                    }
                 }
-                ll_tabs_left.layoutParams = leftLayoutParams
+                ll_tabs_right.apply widthProvider@ {
+                    layoutParams = (layoutParams as LinearLayout.LayoutParams).apply {
+                        rightMargin = (this@widthProvider.width * (collapsedParent - 1)).toInt()
+                    }
+                }
             }
         }
 
