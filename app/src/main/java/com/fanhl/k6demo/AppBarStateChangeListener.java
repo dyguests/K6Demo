@@ -18,13 +18,13 @@ public abstract class AppBarStateChangeListener implements AppBarLayout.OnOffset
     private State mCurrentState = State.IDLE;
 
     @Override
-    public final void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-        if (i == 0) {
+    public final void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        if (verticalOffset == 0) {
             if (mCurrentState != State.EXPANDED) {
                 onStateChanged(appBarLayout, State.EXPANDED);
             }
             mCurrentState = State.EXPANDED;
-        } else if (Math.abs(i) >= appBarLayout.getTotalScrollRange()) {
+        } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
             if (mCurrentState != State.COLLAPSED) {
                 onStateChanged(appBarLayout, State.COLLAPSED);
             }

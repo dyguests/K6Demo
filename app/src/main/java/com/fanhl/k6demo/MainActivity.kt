@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.*
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -17,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainActivity : AppCompatActivity() {
+    /** TAG */
+    private val TAG = MainActivity::class.java.simpleName!!
 
     /**
      * The [android.support.v4.view.PagerAdapter] that will provide
@@ -43,6 +46,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+        appbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val collapsedParent = -verticalOffset / appBarLayout.totalScrollRange.toFloat()
+            Log.d(TAG, "onCreate collapsedParent:" + collapsedParent)
+        }
 
         tv_left.setOnClickListener { appbar.setExpanded(true, true) }
 
