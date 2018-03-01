@@ -43,42 +43,51 @@ class SecondFragment : Fragment() {
 //        }
 
         recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            var totalOffset = 0
+            var defaultTvSearchY: Float? = null
+            var totalOffset = 0F
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 val offsetMaxBound = (tv_search.layoutParams as ViewGroup.MarginLayoutParams).topMargin + tv_search.height
 
-                Log.d(TAG, "onScrolled tv_search.y:${tv_search.y}")
+                if (defaultTvSearchY == null) {
+                    defaultTvSearchY = (tv_search.layoutParams as ViewGroup.MarginLayoutParams).topMargin.toFloat()
+                    Log.d(TAG, "onScrolled defaultTvSearchY:$defaultTvSearchY")
+                }
+                totalOffset = defaultTvSearchY!! - tv_search.y
 
                 Log.d(TAG, "onScrolled dx:$dx dy:$dy")
                 if (totalOffset < offsetMaxBound && dy > 0) {
                     //优化后的dy，防止越界
                     val oDy = if (totalOffset + dy <= offsetMaxBound) {
-                        dy
+                        dy.toFloat()
                     } else {
                         offsetMaxBound - totalOffset
                     }
 
-                    totalOffset += oDy
-                    ViewCompat.offsetTopAndBottom(tv_search, -oDy)
+//                    totalOffset += oDy
+                    ViewCompat.offsetTopAndBottom(tv_search, -oDy.toInt())
+//                    totalOffset = defaultTvSearchY!! - tv_search.y
 
                 } else if (totalOffset > 0 && dy < 0) {
                     //优化后的dy，防止越界
                     val oDy = if (totalOffset + dy >= 0) {
-                        dy
+                        dy.toFloat()
                     } else {
                         -totalOffset
                     }
 
-                    totalOffset += oDy
-                    ViewCompat.offsetTopAndBottom(tv_search, -oDy)
+//                    totalOffset += oDy
+                    ViewCompat.offsetTopAndBottom(tv_search, -oDy.toInt())
+//                    totalOffset = defaultTvSearchY!! - tv_search.y
                 }
+
+                Log.d(TAG, "onScrolled defaultTvSearchY:$defaultTvSearchY totalOffset:$totalOffset offsetMaxBound:$offsetMaxBound")
             }
 
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    Log.d(TAG, "onScrollStateChanged idle")
+                    Log.d(TAG, "onScrollStateChanged idle totalOffset:$totalOffset")
                     if (totalOffset > 0) {
-                        tv_search.animate().translationY(totalOffset.toFloat())
+                        tv_search.animate().translationYBy(totalOffset)
                     }
                 }
             }
