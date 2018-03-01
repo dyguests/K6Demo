@@ -42,8 +42,22 @@ class MainActivity : AppCompatActivity() {
         appbar.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
             override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
                 when (state) {
-                    State.COLLAPSED -> ((appbar.layoutParams as CoordinatorLayout.LayoutParams).behavior as DisableableAppBarLayoutBehavior).enabled = false
-                    else -> ((appbar.layoutParams as CoordinatorLayout.LayoutParams).behavior as DisableableAppBarLayoutBehavior).enabled = true
+                    State.COLLAPSED -> ((appbar.layoutParams as CoordinatorLayout.LayoutParams).behavior as DisableableAppBarLayoutBehavior).apply {
+                        enabled = false
+                        setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
+                            override fun canDrag(appBarLayout: AppBarLayout): Boolean {
+                                return false
+                            }
+                        })
+                    }
+                    else -> ((appbar.layoutParams as CoordinatorLayout.LayoutParams).behavior as DisableableAppBarLayoutBehavior).apply {
+                        enabled = true
+                        setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
+                            override fun canDrag(appBarLayout: AppBarLayout): Boolean {
+                                return true
+                            }
+                        })
+                    }
                 }
             }
         })
