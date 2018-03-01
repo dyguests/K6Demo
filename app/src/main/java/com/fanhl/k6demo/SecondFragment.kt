@@ -2,27 +2,28 @@ package com.fanhl.k6demo
 
 import android.os.AsyncTask
 import android.os.Bundle
+import android.support.design.widget.CoordinatorLayout
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewCompat
+import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_search.*
 
 /**
  * A placeholder fragment containing a simple view.
  */
-class PlaceholderFragment : Fragment() {
+class SecondFragment : Fragment() {
     val sectionNumber by lazy { arguments.getInt(ARG_SECTION_NUMBER) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val rootView = if (sectionNumber == 1) {
-            inflater.inflate(R.layout.fragment_main, container, false)
-        } else {
-            inflater.inflate(R.layout.fragment_search, container, false)
-        }
+        val rootView = inflater.inflate(R.layout.fragment_search, container, false)
         return rootView
     }
 
@@ -37,7 +38,36 @@ class PlaceholderFragment : Fragment() {
                 }
             }
         }
+//        (tv_search.layoutParams as CoordinatorLayout.LayoutParams).behavior = SearchBarBehavior {
+//            getSearchBehaviorEnable()
+//        }
+
+        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            var totalOffset = 0
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                val offsetMaxBound = (tv_search.layoutParams as ViewGroup.MarginLayoutParams).topMargin + tv_search.height
+
+                Log.d(TAG, "onScrolled dx:$dx dy:$dy")
+                if (totalOffset < offsetMaxBound && dy > 0) {
+                    totalOffset += dy
+                    ViewCompat.offsetTopAndBottom(tv_search, -dy)
+                } else if (totalOffset > 0 && dy < 0) {
+                    totalOffset += dy
+                    ViewCompat.offsetTopAndBottom(tv_search, -dy)
+                }
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    Log.d(TAG, "onScrollStateChanged idle")
+                    //show
+                }
+            }
+        })
     }
+
+    private fun getSearchBehaviorEnable() =
+            !(((activity as MainActivity).appbar.layoutParams as CoordinatorLayout.LayoutParams).behavior as DisableableAppBarLayoutBehavior).enabled
 
     private fun refreshData() {
         object : AsyncTask<Void, Void, Void?>() {
@@ -53,6 +83,8 @@ class PlaceholderFragment : Fragment() {
     }
 
     companion object {
+        /** TAG */
+        private val TAG = SecondFragment::class.java.simpleName!!
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -63,8 +95,8 @@ class PlaceholderFragment : Fragment() {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        fun newInstance(sectionNumber: Int): PlaceholderFragment {
-            val fragment = PlaceholderFragment()
+        fun newInstance(sectionNumber: Int): SecondFragment {
+            val fragment = SecondFragment()
             val args = Bundle()
             args.putInt(ARG_SECTION_NUMBER, sectionNumber)
             fragment.arguments = args
