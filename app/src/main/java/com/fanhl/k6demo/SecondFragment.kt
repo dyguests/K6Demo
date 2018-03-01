@@ -47,20 +47,39 @@ class SecondFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 val offsetMaxBound = (tv_search.layoutParams as ViewGroup.MarginLayoutParams).topMargin + tv_search.height
 
+                Log.d(TAG, "onScrolled tv_search.y:${tv_search.y}")
+
                 Log.d(TAG, "onScrolled dx:$dx dy:$dy")
                 if (totalOffset < offsetMaxBound && dy > 0) {
-                    totalOffset += dy
-                    ViewCompat.offsetTopAndBottom(tv_search, -dy)
+                    //优化后的dy，防止越界
+                    val oDy = if (totalOffset + dy <= offsetMaxBound) {
+                        dy
+                    } else {
+                        offsetMaxBound - totalOffset
+                    }
+
+                    totalOffset += oDy
+                    ViewCompat.offsetTopAndBottom(tv_search, -oDy)
+
                 } else if (totalOffset > 0 && dy < 0) {
-                    totalOffset += dy
-                    ViewCompat.offsetTopAndBottom(tv_search, -dy)
+                    //优化后的dy，防止越界
+                    val oDy = if (totalOffset + dy >= 0) {
+                        dy
+                    } else {
+                        -totalOffset
+                    }
+
+                    totalOffset += oDy
+                    ViewCompat.offsetTopAndBottom(tv_search, -oDy)
                 }
             }
 
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     Log.d(TAG, "onScrollStateChanged idle")
-                    //show
+                    if (totalOffset > 0) {
+                        tv_search.animate().translationY(totalOffset.toFloat())
+                    }
                 }
             }
         })
