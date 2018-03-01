@@ -8,29 +8,13 @@
     android:fillViewport="true"
     tools:context="com.fanhl.k6demo.MainActivity$PlaceholderFragment">
 
-    <android.support.design.widget.CoordinatorLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            android:paddingBottom="72dp"
-            android:paddingTop="40dp"
-            app:layoutManager="@string/linear_layout_manager"
-            tools:listitem="@layout/item_view"/>
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:background="#ff9239"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="搜索框"/>
-    </android.support.design.widget.CoordinatorLayout>
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:paddingBottom="72dp"
+        app:layoutManager="@string/linear_layout_manager"
+        tools:listitem="@layout/item_view"/>
 </android.support.v4.widget.SwipeRefreshLayout>

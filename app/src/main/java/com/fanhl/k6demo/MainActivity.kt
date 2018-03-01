@@ -141,10 +141,15 @@ class MainActivity : AppCompatActivity() {
      * A placeholder fragment containing a simple view.
      */
     class PlaceholderFragment : Fragment() {
+        val sectionNumber by lazy { arguments.getInt(ARG_SECTION_NUMBER) }
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
-            val rootView = inflater.inflate(R.layout.fragment_main, container, false)
+            val rootView = if (sectionNumber == 1) {
+                inflater.inflate(R.layout.fragment_main, container, false)
+            } else {
+                inflater.inflate(R.layout.fragment_search, container, false)
+            }
             return rootView
         }
 
