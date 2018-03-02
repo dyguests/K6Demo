@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
         tv_left.setOnClickListener { appbar.setExpanded(true, true) }
 
-        container.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
+        view_pager.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
 
             override fun getItem(position: Int): Fragment {
                 return when (position) {
@@ -88,8 +88,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
-        tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
+        view_pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
+        tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view_pager))
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
