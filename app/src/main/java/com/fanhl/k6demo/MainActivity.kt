@@ -6,7 +6,7 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         setSupportActionBar(toolbar)
 
         //顶部滑动交互
@@ -74,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
         tv_left.setOnClickListener { appbar.setExpanded(true, true) }
 
-        container.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
+        container.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
 
             override fun getItem(position: Int): Fragment {
                 return when (position) {
