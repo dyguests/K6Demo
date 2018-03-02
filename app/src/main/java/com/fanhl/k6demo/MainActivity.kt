@@ -6,7 +6,6 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -18,8 +17,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     /** TAG */
     private val TAG = MainActivity::class.java.simpleName!!
-
-    private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,12 +74,20 @@ class MainActivity : AppCompatActivity() {
 
         tv_left.setOnClickListener { appbar.setExpanded(true, true) }
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
+        container.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
 
-        // Set up the ViewPager with the sections adapter.
-        container.adapter = mSectionsPagerAdapter
+            override fun getItem(position: Int): Fragment {
+                return when (position) {
+                    0 -> FirstFragment.newInstance(position + 1)
+                    else -> SecondFragment.newInstance(position + 1)
+                }
+            }
+
+            override fun getCount(): Int {
+                // Show 3 total pages.
+                return 2
+            }
+        }
 
         container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
         tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
@@ -112,26 +117,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-
-    /**
-     * A [FragmentPagerAdapter] that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-
-        override fun getItem(position: Int): Fragment {
-            return when (position) {
-                0 -> FirstFragment.newInstance(position + 1)
-                else -> SecondFragment.newInstance(position + 1)
-            }
-        }
-
-        override fun getCount(): Int {
-            // Show 3 total pages.
-            return 2
-        }
     }
 
 }
