@@ -1,4 +1,4 @@
-<android.support.v4.widget.SwipeRefreshLayout
+<com.fanhl.k6demo.widget.C1SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,7 +8,7 @@
     android:fillViewport="true"
     tools:context="com.fanhl.k6demo.FirstFragment">
 
-    <android.support.v7.widget.RecyclerView
+    <com.fanhl.k6demo.widget.C1RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,4 +17,4 @@
         android:paddingBottom="72dp"
         app:layoutManager="@string/linear_layout_manager"
         tools:listitem="@layout/item_view"/>
-</android.support.v4.widget.SwipeRefreshLayout>
+</com.fanhl.k6demo.widget.C1SwipeRefreshLayout>
