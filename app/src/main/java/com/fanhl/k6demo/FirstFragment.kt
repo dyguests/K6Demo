@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.fragment_first.*
  * A placeholder fragment containing a simple view.
  */
 class FirstFragment : Fragment() {
-    val sectionNumber by lazy { arguments.getInt(ARG_SECTION_NUMBER) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -38,7 +37,7 @@ class FirstFragment : Fragment() {
     private fun refreshData() {
         object : AsyncTask<Void, Void, Void?>() {
             override fun doInBackground(vararg params: Void?): Void? {
-                Thread.sleep(2000)
+                Thread.sleep(1000)
                 return null
             }
 
