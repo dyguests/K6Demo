@@ -7,12 +7,12 @@ import android.util.AttributeSet
 import android.view.View
 
 /**
- * desc:
+ * desc: 6.0首页用的 appBar behavior
  * date: 2018/2/28
  *
  * @author fanhl
  */
-class DisableableAppBarLayoutBehavior : AppBarLayout.Behavior {
+class K6AppBarLayoutBehavior : AppBarLayout.Behavior {
     var enabled = true // enabled by default
 
     constructor() : super() {}

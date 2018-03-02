@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         appbar.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
             override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
                 when (state) {
-                    State.COLLAPSED -> ((appbar.layoutParams as CoordinatorLayout.LayoutParams).behavior as DisableableAppBarLayoutBehavior).apply {
+                    State.COLLAPSED -> ((appbar.layoutParams as CoordinatorLayout.LayoutParams).behavior as K6AppBarLayoutBehavior).apply {
                         enabled = false
                         setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
                             override fun canDrag(appBarLayout: AppBarLayout): Boolean {
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         })
                     }
-                    else -> ((appbar.layoutParams as CoordinatorLayout.LayoutParams).behavior as DisableableAppBarLayoutBehavior).apply {
+                    else -> ((appbar.layoutParams as CoordinatorLayout.LayoutParams).behavior as K6AppBarLayoutBehavior).apply {
                         enabled = true
                         setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
                             override fun canDrag(appBarLayout: AppBarLayout): Boolean {

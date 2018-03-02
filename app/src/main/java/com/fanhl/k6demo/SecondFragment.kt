@@ -95,7 +95,7 @@ class SecondFragment : Fragment() {
     }
 
     private fun getSearchBehaviorEnable() =
-            !(((activity as MainActivity).appbar.layoutParams as CoordinatorLayout.LayoutParams).behavior as DisableableAppBarLayoutBehavior).enabled
+            !(((activity as MainActivity).appbar.layoutParams as CoordinatorLayout.LayoutParams).behavior as K6AppBarLayoutBehavior).enabled
 
     private fun refreshData() {
         object : AsyncTask<Void, Void, Void?>() {
