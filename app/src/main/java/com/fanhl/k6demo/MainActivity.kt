@@ -68,6 +68,8 @@ class MainActivity : AppCompatActivity() {
                         rightMargin = (this@widthProvider.width * collapsedHotPercent).toInt()
                     }
                 }
+
+                //requestLayout()
             }
         }
 
