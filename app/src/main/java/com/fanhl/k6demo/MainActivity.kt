@@ -57,6 +57,8 @@ class MainActivity : AppCompatActivity() {
 
             Log.d(TAG, "onCreate collapsedPercent:" + collapsedPercent)
 
+            // FIXME: 2018/3/5
+            //This code make behavior incorrectly.
             ll_tabs.apply {
                 ll_tabs_left.apply widthProvider@ {
                     layoutParams = (layoutParams as LinearLayout.LayoutParams).apply {
@@ -69,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                //requestLayout()
+                //It seems requestLayout() make behavior incorrectly.
             }
         }
 
